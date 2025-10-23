@@ -18,7 +18,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../navbar/NavbarSection";
-import Hospital from "../../assets/searchResult.svg";
+import HospitalIcon from "../../assets/searchResult.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -37,8 +37,9 @@ export default function SearchResults() {
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
 
+  // Booking state
   const [activeBookingId, setActiveBookingId] = useState(null);
-  const [bookingSelections, setBookingSelections] = useState({});
+  const [bookingSelections, setBookingSelections] = useState({}); // per hospital
 
   const next7Days = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date();
@@ -78,7 +79,7 @@ export default function SearchResults() {
       .finally(() => setLoadingCities(false));
   }, [selectedState]);
 
-  // Fetch results
+  // Fetch search results
   const fetchResults = (stateParam = selectedState, cityParam = selectedCity) => {
     if (!stateParam || !cityParam) return;
     setLoading(true);
@@ -122,7 +123,7 @@ export default function SearchResults() {
     }
 
     const newBooking = {
-      hospitalName,
+      "Hospital Name": hospitalName,
       date: date.toDateString(),
       period,
       time,
@@ -148,7 +149,7 @@ export default function SearchResults() {
     <Box>
       <Navbar />
 
-      {/* Search */}
+      {/* Search Bar */}
       <Box
         component="form"
         onSubmit={handleSearch}
@@ -164,18 +165,12 @@ export default function SearchResults() {
                 setSelectedCity("");
               }}
               label="State"
+              native
             >
-              {loadingStates ? (
-                <MenuItem value="">
-                  <CircularProgress size={16} /> Loading...
-                </MenuItem>
-              ) : (
-                states.map((state) => (
-                  <MenuItem key={state} value={state}>
-                    {state}
-                  </MenuItem>
-                ))
-              )}
+              <option value="">Select State</option>
+              {states.map((state) => (
+                <option key={state} value={state}>{state}</option>
+              ))}
             </Select>
           </FormControl>
         </div>
@@ -187,19 +182,13 @@ export default function SearchResults() {
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
               label="City"
+              native
               disabled={!selectedState || loadingCities}
             >
-              {loadingCities ? (
-                <MenuItem value="">
-                  <CircularProgress size={16} /> Loading...
-                </MenuItem>
-              ) : (
-                cities.map((city) => (
-                  <MenuItem key={city} value={city}>
-                    {city}
-                  </MenuItem>
-                ))
-              )}
+              <option value="">Select City</option>
+              {cities.map((city) => (
+                <option key={city} value={city}>{city}</option>
+              ))}
             </Select>
           </FormControl>
         </div>
@@ -209,8 +198,9 @@ export default function SearchResults() {
         </Button>
       </Box>
 
+      {/* Results Heading */}
       <h1 style={{ textAlign: "center", marginTop: 16 }}>
-        {results.length} medical centers available in {selectedCity}
+        {results.length} medical centers available in {selectedCity.toLowerCase()}
       </h1>
 
       {/* Results */}
@@ -229,7 +219,7 @@ export default function SearchResults() {
             const selection = bookingSelections[hospitalId] || { date: null, period: null, time: null };
 
             return (
-              <Grid item key={hospitalId}>
+              <Grid item key={hospitalId} xs={12}>
                 <Paper
                   elevation={3}
                   sx={{
@@ -242,8 +232,9 @@ export default function SearchResults() {
                     mb: 2,
                   }}
                 >
+                  {/* Left Info */}
                   <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Box component="img" src={Hospital} sx={{ width: 60, height: 60 }} />
+                    <Box component="img" src={HospitalIcon} sx={{ width: 60, height: 60 }} />
                     <Box>
                       <h3>{item["Hospital Name"]}</h3>
                       <Typography variant="body2" color="text.secondary">
@@ -255,6 +246,7 @@ export default function SearchResults() {
                     </Box>
                   </Box>
 
+                  {/* Booking */}
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Button
                       variant="contained"
@@ -270,6 +262,9 @@ export default function SearchResults() {
 
                     {activeBookingId === hospitalId && (
                       <Box sx={{ mt: 1, width: 350 }}>
+                        {/* Show Today text if selected date is today */}
+                        {selection.date?.toDateString() === new Date().toDateString() && <p>Today</p>}
+
                         <Swiper spaceBetween={10} slidesPerView={4}>
                           {next7Days.map((date) => (
                             <SwiperSlide key={date.toDateString()}>
@@ -278,7 +273,10 @@ export default function SearchResults() {
                                 onClick={() =>
                                   setBookingSelections((prev) => ({
                                     ...prev,
-                                    [hospitalId]: { ...prev[hospitalId], date },
+                                    [hospitalId]: {
+                                      ...prev[hospitalId],
+                                      date,
+                                    },
                                   }))
                                 }
                                 sx={{ width: "100%", whiteSpace: "nowrap" }}
@@ -306,7 +304,11 @@ export default function SearchResults() {
                                       onClick={() =>
                                         setBookingSelections((prev) => ({
                                           ...prev,
-                                          [hospitalId]: { ...prev[hospitalId], time: slot, period },
+                                          [hospitalId]: {
+                                            ...prev[hospitalId],
+                                            time: slot,
+                                            period,
+                                          },
                                         }))
                                       }
                                     >
