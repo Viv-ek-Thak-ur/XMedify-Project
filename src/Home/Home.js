@@ -3,6 +3,8 @@ import { Container, Typography } from "@mui/material";
 import HeroSection from "./HeroSection";
 import Navbar from "../Components/navbar/NavbarSection";
 import CategorySection from "../Components/categorySection/CategorySection";
+import SwiperSection from "../Components/SwiperSection/SwiperSection";
+import SpecialitySection from "../Components/SpecialitySection/SpecialitySection";
 
 function Home() {
   return (
@@ -18,6 +20,8 @@ function Home() {
            <Navbar/>
        </HeroSection>
        <CategorySection/>
+       <SwiperSection/>
+       <SpecialitySection/>
     </>
   );
 }
