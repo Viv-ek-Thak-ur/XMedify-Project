@@ -37,9 +37,8 @@ export default function SearchResults() {
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
 
-  // Booking state
   const [activeBookingId, setActiveBookingId] = useState(null);
-  const [bookingSelections, setBookingSelections] = useState({}); // per hospital
+  const [bookingSelections, setBookingSelections] = useState({});
 
   const next7Days = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date();
@@ -79,7 +78,7 @@ export default function SearchResults() {
       .finally(() => setLoadingCities(false));
   }, [selectedState]);
 
-  // Fetch search results
+  // Fetch results
   const fetchResults = (stateParam = selectedState, cityParam = selectedCity) => {
     if (!stateParam || !cityParam) return;
     setLoading(true);
@@ -114,44 +113,42 @@ export default function SearchResults() {
   };
 
   const handleConfirmBooking = (hospitalName, hospitalId) => {
-  const selection = bookingSelections[hospitalId] || {};
-  const { date, period, time } = selection;
+    const selection = bookingSelections[hospitalId] || {};
+    const { date, period, time } = selection;
 
-  if (!date || !period || !time) {
-    alert("Please select date and time slot first!");
-    return;
-  }
+    if (!date || !period || !time) {
+      alert("Please select date and time slot first!");
+      return;
+    }
 
-  const newBooking = {
-    hospitalName,
-    date: date.toDateString(),
-    period,
-    time,
-    id: Date.now(),
+    const newBooking = {
+      hospitalName,
+      date: date.toDateString(),
+      period,
+      time,
+      id: Date.now(),
+    };
+
+    const existingBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+    localStorage.setItem("bookings", JSON.stringify([...existingBookings, newBooking]));
+
+    alert(
+      `Booked ${hospitalName} on ${date.toDateString()} during ${period} at ${time}`
+    );
+
+    setBookingSelections((prev) => ({
+      ...prev,
+      [hospitalId]: { date: null, period: null, time: null },
+    }));
+
+    setActiveBookingId(null);
   };
-
-  const existingBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
-  localStorage.setItem("bookings", JSON.stringify([...existingBookings, newBooking]));
-
-  alert(
-    `Booked ${hospitalName} on ${date.toDateString()} during ${period} at ${time}`
-  );
-
-  // Reset only this hospital's selection
-  setBookingSelections((prev) => ({
-    ...prev,
-    [hospitalId]: { date: null, period: null, time: null },
-  }));
-
-  setActiveBookingId(null);
-};
-
 
   return (
     <Box>
       <Navbar />
 
-      {/* Search Bar */}
+      {/* Search */}
       <Box
         component="form"
         onSubmit={handleSearch}
@@ -232,7 +229,7 @@ export default function SearchResults() {
             const selection = bookingSelections[hospitalId] || { date: null, period: null, time: null };
 
             return (
-              <Grid item key={hospitalId} xs={12}>
+              <Grid item key={hospitalId}>
                 <Paper
                   elevation={3}
                   sx={{
@@ -245,7 +242,6 @@ export default function SearchResults() {
                     mb: 2,
                   }}
                 >
-                  {/* Left Info */}
                   <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                     <Box component="img" src={Hospital} sx={{ width: 60, height: 60 }} />
                     <Box>
@@ -259,7 +255,6 @@ export default function SearchResults() {
                     </Box>
                   </Box>
 
-                  {/* Booking */}
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Button
                       variant="contained"
@@ -283,18 +278,12 @@ export default function SearchResults() {
                                 onClick={() =>
                                   setBookingSelections((prev) => ({
                                     ...prev,
-                                    [hospitalId]: {
-                                      ...prev[hospitalId],
-                                      date,
-                                    },
+                                    [hospitalId]: { ...prev[hospitalId], date },
                                   }))
                                 }
                                 sx={{ width: "100%", whiteSpace: "nowrap" }}
                               >
-                                {date.toLocaleDateString("en-US", {
-                                  weekday: "short",
-                                  day: "numeric",
-                                })}
+                                {date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" })}
                               </Button>
                             </SwiperSlide>
                           ))}
@@ -317,11 +306,7 @@ export default function SearchResults() {
                                       onClick={() =>
                                         setBookingSelections((prev) => ({
                                           ...prev,
-                                          [hospitalId]: {
-                                            ...prev[hospitalId],
-                                            time: slot,
-                                            period,
-                                          },
+                                          [hospitalId]: { ...prev[hospitalId], time: slot, period },
                                         }))
                                       }
                                     >

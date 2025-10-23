@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -30,7 +30,6 @@ export default function MyBookings() {
     <Box>
       <Navbar />
 
-      {/* Heading and Search */}
       <Box
         sx={{
           display: "flex",
@@ -40,7 +39,7 @@ export default function MyBookings() {
           flexWrap: "wrap",
         }}
       >
-        <h1>MY BOOKINGS</h1>
+        <h1>My Bookings</h1>
         <TextField
           label="Search by Hospital Name"
           value={searchTerm}
@@ -49,15 +48,14 @@ export default function MyBookings() {
         />
       </Box>
 
-      {/* Bookings List */}
       <Grid container direction="column" spacing={2} sx={{ p: 3 }}>
         {filteredBookings.length === 0 ? (
           <Typography textAlign="center" width="100%" mt={4}>
             No bookings found.
           </Typography>
         ) : (
-          filteredBookings.map((booking, index) => (
-            <Grid item key={index} xs={12}>
+          filteredBookings.map((booking) => (
+            <Grid key={booking.id}>
               <Paper
                 elevation={3}
                 sx={{
@@ -69,7 +67,7 @@ export default function MyBookings() {
               >
                 <h3>{booking.hospitalName}</h3>
                 <Typography>Date: {booking.date}</Typography>
-                <Typography>Time of Day: {booking.period}</Typography>
+                <Typography>Time of Day: <p>{booking.period}</p></Typography>
                 <Typography>Time: {booking.time}</Typography>
               </Paper>
             </Grid>
