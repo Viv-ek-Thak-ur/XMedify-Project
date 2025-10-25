@@ -5,11 +5,11 @@ import {
   Paper,
   Typography,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,10 +32,6 @@ export default function SearchResults() {
   const [loading, setLoading] = useState(false);
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
-
-  // Dropdown visibility for custom li-based dropdowns
-  const [showStateDropdown, setShowStateDropdown] = useState(false);
-  const [showCityDropdown, setShowCityDropdown] = useState(false);
 
   // Booking state
   const [activeBookingId, setActiveBookingId] = useState(null);
@@ -150,91 +146,47 @@ export default function SearchResults() {
       <Navbar />
 
       {/* Search Bar */}
-      <Box component="form" onSubmit={handleSearch} sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center", p: 3 }}>
-        {/* State Dropdown */}
-        <div id="state" style={{ position: "relative" }}>
-          <Button
-            variant="outlined"
-            onClick={() => setShowStateDropdown((prev) => !prev)}
-            sx={{ minWidth: 150 }}
-          >
-            {selectedState || "Select State"}
-          </Button>
-          {showStateDropdown && (
-            <ul
-              style={{
-                listStyle: "none",
-                margin: 0,
-                padding: "5px 0",
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                width: "100%",
-                maxHeight: 150,
-                overflowY: "auto",
-                background: "white",
-                border: "1px solid #ccc",
-                zIndex: 1000,
+      <Box
+        component="form"
+        onSubmit={handleSearch}
+        sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center", p: 3 }}
+      >
+        <div id="state">
+          <FormControl sx={{ minWidth: 150 }} size="small">
+            <InputLabel>State</InputLabel>
+            <Select
+              value={selectedState}
+              onChange={(e) => {
+                setSelectedState(e.target.value);
+                setSelectedCity("");
               }}
+              label="State"
+              native
             >
+              <option value="">Select State</option>
               {states.map((state) => (
-                <li
-                  key={state}
-                  style={{ padding: "5px 10px", cursor: "pointer" }}
-                  onClick={() => {
-                    setSelectedState(state);
-                    setSelectedCity("");
-                    setShowStateDropdown(false);
-                  }}
-                >
-                  {state}
-                </li>
+                <option key={state} value={state}>{state}</option>
               ))}
-            </ul>
-          )}
+            </Select>
+          </FormControl>
         </div>
 
-        {/* City Dropdown */}
-        <div id="city" style={{ position: "relative" }}>
-          <Button
-            variant="outlined"
-            onClick={() => setShowCityDropdown((prev) => !prev)}
-            sx={{ minWidth: 150 }}
-            disabled={!selectedState || loadingCities}
-          >
-            {selectedCity || "Select City"}
-          </Button>
-          {showCityDropdown && (
-            <ul
-              style={{
-                listStyle: "none",
-                margin: 0,
-                padding: "5px 0",
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                width: "100%",
-                maxHeight: 150,
-                overflowY: "auto",
-                background: "white",
-                border: "1px solid #ccc",
-                zIndex: 1000,
-              }}
+        <div id="city">
+          <FormControl sx={{ minWidth: 150 }} size="small">
+            <InputLabel>City</InputLabel>
+            <Select
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)}
+              label="City"
+              native
+              disabled={!selectedState || loadingCities}
             >
+              <option value="">Select City</option>
               {cities.map((city) => (
-                <li
-                  key={city}
-                  style={{ padding: "5px 10px", cursor: "pointer" }}
-                  onClick={() => {
-                    setSelectedCity(city);
-                    setShowCityDropdown(false);
-                  }}
-                >
-                  {city}
-                </li>
+                <option key={city} value={city}>{city}</option>
               ))}
-            </ul>
-          )}
+            </Select>
+          </FormControl>
         </div>
 
         <Button type="submit" variant="contained" id="searchBtn" sx={{ height: 40 }}>
@@ -306,9 +258,10 @@ export default function SearchResults() {
 
                     {activeBookingId === hospitalId && (
                       <Box sx={{ mt: 1, width: 350 }}>
-                        {/* Show Today text if selected date is today */}
-                        {selection.date?.toDateString() === new Date().toDateString() && <p>Today</p>}
+                        {/* Always show Today */}
+                        <p>Today</p>
 
+                        {/* Date selection */}
                         <Swiper spaceBetween={10} slidesPerView={4}>
                           {next7Days.map((date) => (
                             <SwiperSlide key={date.toDateString()}>
@@ -331,39 +284,36 @@ export default function SearchResults() {
                           ))}
                         </Swiper>
 
-                        <Table sx={{ mt: 1 }}>
-                          <TableBody>
-                            {Object.entries(timeSlots).map(([period, slots]) => (
-                              <TableRow key={period}>
-                                <TableCell sx={{ width: 100 }}>
-                                  <p>{period}</p>
-                                </TableCell>
-                                <TableCell>
-                                  {slots.map((slot) => (
-                                    <Button
-                                      key={slot}
-                                      variant={selection.time === slot && selection.period === period ? "contained" : "outlined"}
-                                      size="small"
-                                      sx={{ m: 0.5 }}
-                                      onClick={() =>
-                                        setBookingSelections((prev) => ({
-                                          ...prev,
-                                          [hospitalId]: {
-                                            ...prev[hospitalId],
-                                            time: slot,
-                                            period,
-                                          },
-                                        }))
-                                      }
-                                    >
-                                      {slot}
-                                    </Button>
-                                  ))}
-                                </TableCell>
-                              </TableRow>
+                        {/* Time period slots */}
+                        {["Morning", "Afternoon", "Evening"].map((period) => (
+                          <Box key={period} sx={{ mt: 1 }}>
+                            <p>{period}</p>
+                            {timeSlots[period].map((slot) => (
+                              <Button
+                                key={slot}
+                                variant={
+                                  selection.period === period && selection.time === slot
+                                    ? "contained"
+                                    : "outlined"
+                                }
+                                size="small"
+                                sx={{ m: 0.5 }}
+                                onClick={() =>
+                                  setBookingSelections((prev) => ({
+                                    ...prev,
+                                    [hospitalId]: {
+                                      ...prev[hospitalId],
+                                      period,
+                                      time: slot,
+                                    },
+                                  }))
+                                }
+                              >
+                                {slot}
+                              </Button>
                             ))}
-                          </TableBody>
-                        </Table>
+                          </Box>
+                        ))}
                       </Box>
                     )}
                   </Box>
