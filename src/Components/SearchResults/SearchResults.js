@@ -5,10 +5,6 @@ import {
   Paper,
   Typography,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   CircularProgress,
   Table,
   TableBody,
@@ -36,6 +32,10 @@ export default function SearchResults() {
   const [loading, setLoading] = useState(false);
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
+
+  // Dropdown visibility for custom li-based dropdowns
+  const [showStateDropdown, setShowStateDropdown] = useState(false);
+  const [showCityDropdown, setShowCityDropdown] = useState(false);
 
   // Booking state
   const [activeBookingId, setActiveBookingId] = useState(null);
@@ -150,47 +150,91 @@ export default function SearchResults() {
       <Navbar />
 
       {/* Search Bar */}
-      <Box
-        component="form"
-        onSubmit={handleSearch}
-        sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center", p: 3 }}
-      >
-        <div id="state">
-          <FormControl sx={{ minWidth: 150 }} size="small">
-            <InputLabel>State</InputLabel>
-            <Select
-              value={selectedState}
-              onChange={(e) => {
-                setSelectedState(e.target.value);
-                setSelectedCity("");
+      <Box component="form" onSubmit={handleSearch} sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center", p: 3 }}>
+        {/* State Dropdown */}
+        <div id="state" style={{ position: "relative" }}>
+          <Button
+            variant="outlined"
+            onClick={() => setShowStateDropdown((prev) => !prev)}
+            sx={{ minWidth: 150 }}
+          >
+            {selectedState || "Select State"}
+          </Button>
+          {showStateDropdown && (
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: "5px 0",
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                width: "100%",
+                maxHeight: 150,
+                overflowY: "auto",
+                background: "white",
+                border: "1px solid #ccc",
+                zIndex: 1000,
               }}
-              label="State"
-              native
             >
-              <option value="">Select State</option>
               {states.map((state) => (
-                <option key={state} value={state}>{state}</option>
+                <li
+                  key={state}
+                  style={{ padding: "5px 10px", cursor: "pointer" }}
+                  onClick={() => {
+                    setSelectedState(state);
+                    setSelectedCity("");
+                    setShowStateDropdown(false);
+                  }}
+                >
+                  {state}
+                </li>
               ))}
-            </Select>
-          </FormControl>
+            </ul>
+          )}
         </div>
 
-        <div id="city">
-          <FormControl sx={{ minWidth: 150 }} size="small">
-            <InputLabel>City</InputLabel>
-            <Select
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              label="City"
-              native
-              disabled={!selectedState || loadingCities}
+        {/* City Dropdown */}
+        <div id="city" style={{ position: "relative" }}>
+          <Button
+            variant="outlined"
+            onClick={() => setShowCityDropdown((prev) => !prev)}
+            sx={{ minWidth: 150 }}
+            disabled={!selectedState || loadingCities}
+          >
+            {selectedCity || "Select City"}
+          </Button>
+          {showCityDropdown && (
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: "5px 0",
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                width: "100%",
+                maxHeight: 150,
+                overflowY: "auto",
+                background: "white",
+                border: "1px solid #ccc",
+                zIndex: 1000,
+              }}
             >
-              <option value="">Select City</option>
               {cities.map((city) => (
-                <option key={city} value={city}>{city}</option>
+                <li
+                  key={city}
+                  style={{ padding: "5px 10px", cursor: "pointer" }}
+                  onClick={() => {
+                    setSelectedCity(city);
+                    setShowCityDropdown(false);
+                  }}
+                >
+                  {city}
+                </li>
               ))}
-            </Select>
-          </FormControl>
+            </ul>
+          )}
         </div>
 
         <Button type="submit" variant="contained" id="searchBtn" sx={{ height: 40 }}>

@@ -4,10 +4,6 @@ import {
   Grid,
   Typography,
   Paper,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   Button,
   CircularProgress,
 } from "@mui/material";
@@ -37,6 +33,9 @@ export default function CategorySection() {
   const [selectedCity, setSelectedCity] = useState("");
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
+
+  const [showStateDropdown, setShowStateDropdown] = useState(false);
+  const [showCityDropdown, setShowCityDropdown] = useState(false);
 
   // Fetch states
   useEffect(() => {
@@ -104,52 +103,117 @@ export default function CategorySection() {
           flexWrap: "wrap",
         }}
       >
-        <FormControl sx={{ minWidth: 150 }} size="small">
-          <InputLabel>State</InputLabel>
-          <Select
-            value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
-            label="State"
-            id="state"
+        {/* State Dropdown */}
+        <div id="state" style={{ position: "relative" }}>
+          <div
+            onClick={() => setShowStateDropdown((prev) => !prev)}
+            style={{
+              border: "1px solid #ccc",
+              borderRadius: 4,
+              padding: "8px",
+              cursor: "pointer",
+              minWidth: 150,
+            }}
           >
-            {loadingStates ? (
-              <MenuItem value="">
-                <CircularProgress size={16} /> Loading...
-              </MenuItem>
-            ) : (
-              states.map((state) => (
-                <MenuItem key={state} value={state}>
-                  {state}
-                </MenuItem>
-              ))
-            )}
-          </Select>
-        </FormControl>
+            {selectedState || "Select State"}
+          </div>
+          {showStateDropdown && (
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+                border: "1px solid #ccc",
+                borderRadius: 4,
+                maxHeight: 150,
+                overflowY: "auto",
+                position: "absolute",
+                background: "#fff",
+                width: "100%",
+                zIndex: 10,
+              }}
+            >
+              {loadingStates ? (
+                <li style={{ padding: 8 }}>
+                  <CircularProgress size={16} /> Loading...
+                </li>
+              ) : (
+                states.map((state) => (
+                  <li
+                    key={state}
+                    style={{ padding: "8px", cursor: "pointer" }}
+                    onClick={() => {
+                      setSelectedState(state);
+                      setSelectedCity("");
+                      setShowStateDropdown(false);
+                    }}
+                  >
+                    {state}
+                  </li>
+                ))
+              )}
+            </ul>
+          )}
+        </div>
 
-        <FormControl sx={{ minWidth: 150 }} size="small">
-          <InputLabel>City</InputLabel>
-          <Select
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.target.value)}
-            label="City"
-            disabled={!selectedState || loadingCities}
-            id="city"
+        {/* City Dropdown */}
+        <div id="city" style={{ position: "relative" }}>
+          <div
+            onClick={() => selectedState && setShowCityDropdown((prev) => !prev)}
+            style={{
+              border: "1px solid #ccc",
+              borderRadius: 4,
+              padding: "8px",
+              cursor: selectedState ? "pointer" : "not-allowed",
+              minWidth: 150,
+            }}
           >
-            {loadingCities ? (
-              <MenuItem value="">
-                <CircularProgress size={16} /> Loading...
-              </MenuItem>
-            ) : (
-              cities.map((city) => (
-                <MenuItem key={city} value={city}>
-                  {city}
-                </MenuItem>
-              ))
-            )}
-          </Select>
-        </FormControl>
+            {selectedCity || "Select City"}
+          </div>
+          {showCityDropdown && (
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+                border: "1px solid #ccc",
+                borderRadius: 4,
+                maxHeight: 150,
+                overflowY: "auto",
+                position: "absolute",
+                background: "#fff",
+                width: "100%",
+                zIndex: 10,
+              }}
+            >
+              {loadingCities ? (
+                <li style={{ padding: 8 }}>
+                  <CircularProgress size={16} /> Loading...
+                </li>
+              ) : (
+                cities.map((city) => (
+                  <li
+                    key={city}
+                    style={{ padding: "8px", cursor: "pointer" }}
+                    onClick={() => {
+                      setSelectedCity(city);
+                      setShowCityDropdown(false);
+                    }}
+                  >
+                    {city}
+                  </li>
+                ))
+              )}
+            </ul>
+          )}
+        </div>
 
-        <Button type="submit" variant="contained" id="searhBtn" sx={{ height: 40, px: 4, bgcolor: "#2196f3" }}>
+        <Button
+          type="submit"
+          variant="contained"
+          id="searchBtn"
+          sx={{ height: 40, px: 4, bgcolor: "#2196f3" }}
+        >
           Search
         </Button>
       </form>
