@@ -110,6 +110,7 @@ export default function CategorySection() {
             value={selectedState}
             onChange={(e) => setSelectedState(e.target.value)}
             label="State"
+            id="state"
           >
             {loadingStates ? (
               <MenuItem value="">
@@ -132,6 +133,7 @@ export default function CategorySection() {
             onChange={(e) => setSelectedCity(e.target.value)}
             label="City"
             disabled={!selectedState || loadingCities}
+            id="city"
           >
             {loadingCities ? (
               <MenuItem value="">
@@ -147,7 +149,7 @@ export default function CategorySection() {
           </Select>
         </FormControl>
 
-        <Button type="submit" variant="contained" sx={{ height: 40, px: 4, bgcolor: "#2196f3" }}>
+        <Button type="submit" variant="contained" id="searhBtn" sx={{ height: 40, px: 4, bgcolor: "#2196f3" }}>
           Search
         </Button>
       </form>
