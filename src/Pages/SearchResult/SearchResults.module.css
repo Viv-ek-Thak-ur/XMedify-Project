@@ -1,0 +1,24 @@
+.resultsContainer {
+    max-width: 1100px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.content {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+.left{
+    flex:3;
+}
+
+.right{
+    flex:1;
+}
+
+.heading{
+    font-size:24px;
+    color:#1B3C74;
+    margin:30px 0;
+}

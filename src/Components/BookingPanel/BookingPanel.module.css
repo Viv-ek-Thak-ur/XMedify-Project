@@ -1,0 +1,163 @@
+.bookingPanel {
+  width: 100%;
+}
+
+/* ===========================
+   Date Section
+=========================== */
+
+.dateContainer {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dateButton {
+  background: white;
+  border: none;
+  border-bottom: 4px solid transparent;
+  padding: 14px 22px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  transition: 0.2s;
+}
+
+.day {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1b3c74;
+}
+
+.slotCount {
+  font-size: 12px;
+  color: #01a400;
+}
+
+.selectedDate {
+  border-bottom-color: #2aa7ff;
+}
+
+.selectedDate .day {
+  color: #2aa7ff;
+}
+
+.dateButton:hover {
+  border-bottom-color: #2aa7ff;
+}
+
+/* ===========================
+   Slot Rows
+=========================== */
+
+.slotRow {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.slotHeading {
+  width: 120px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #414146;
+}
+
+.slotContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  flex: 1;
+}
+
+.slotButton {
+  padding: 10px 16px;
+
+  border: 1px solid #2aa7ff;
+  border-radius: 6px;
+
+  background: white;
+  color: #2aa7ff;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.slotButton:hover {
+  background: #2aa7ff;
+  color: white;
+}
+
+.selectedSlot {
+  background: #2aa7ff;
+  color: white;
+}
+
+/* ===========================
+   Confirm Button
+=========================== */
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.confirmButton {
+  background: #2aa7ff;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 12px 26px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.confirmButton:hover {
+  background: #1687dc;
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width: 768px) {
+  .dateContainer {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .slotRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .slotHeading {
+    width: auto;
+  }
+
+  .buttonContainer {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,163 @@
+.card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+  margin: 20px 0;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.leftSection {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.hospitalImage {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.hospitalInfo {
+  flex: 1;
+}
+
+.hospitalInfo h3 {
+  margin: 0;
+  color: #2aa7ff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.hospitalInfo p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #414146;
+  line-height: 1.5;
+}
+
+.free {
+  color: #02a401;
+  font-weight: 700;
+}
+
+.thumbIcon {
+  margin-top: 12px;
+  width: auto;
+}
+
+/* ===========================
+   Right Section
+=========================== */
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  gap: 16px;
+  text-align: center;
+}
+
+.available {
+  color: #02a401;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.bookButton {
+  background: #2aa7ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  width: 220px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.bookButton:hover {
+  background: #1687dc;
+}
+
+/* ===========================
+   Booking Panel
+=========================== */
+
+.booking {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ===========================
+   Booked Card (My Bookings)
+=========================== */
+
+
+
+.bookingInfo {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bookingDate,
+.bookingTime {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bookingDate {
+  background: #e8f4ff;
+  color: #2aa7ff;
+}
+
+.bookingTime {
+  background: #eaf9ef;
+  color: #01a400;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 900px) {
+  .topSection {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .leftSection {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .rightSection {
+    width: 100%;
+  }
+
+  .bookButton {
+    width: 100%;
+  }
+
+  .bookingInfo {
+    justify-content: center;
+  }
+}
