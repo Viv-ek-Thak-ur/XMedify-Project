@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate , Link} from "react-router-dom";
 import Doctor from "../../assets/u.svg";
 import Labs from "../../assets/ae.svg";
 import Hospitals from "../../assets/g.svg";
 import Medical_Store from "../../assets/e.svg";
 import Ambulance from "../../assets/h.svg";
-import SearchBar from  "../SearchBar/SearchBar";
-import Search_Icon from "../../assets/Icon.svg";
-import BtnIcon from "../../assets/btnsearchIcon.svg";
+
+
 import useLocationData from "../../hooks/useLocationData";
 import SearchSection from "../SearchSection/SearchSection";
 
@@ -101,9 +100,9 @@ const handleSearch = (state,city) => {
         }}
       >
         {category.map((cat, index) => (
-          <a
+          <Link
             key={index}
-            href="#"
+            to="/"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -132,8 +131,8 @@ const handleSearch = (state,city) => {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <img src={cat.image} /> {cat.label}
-          </a>
+            <img src={cat.image} alt="category"/> {cat.label}
+          </Link>
         ))}
       </div>
     </div>
