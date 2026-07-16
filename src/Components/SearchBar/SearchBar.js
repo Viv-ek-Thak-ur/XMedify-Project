@@ -42,22 +42,27 @@ export default function SearchBar({
   };
 
   return (
-    <div
-      id={id}
-      ref={dropdownRef}
-      style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        width: "200px",
-        height: "40px",
-        background: "#F0F0F0",
-        borderRadius: "6px",
-        padding: "0 10px",
-        cursor: options.length ? "pointer" : "text",
-      }}
-    >
+   <div
+  id={id}
+  ref={dropdownRef}
+  onClick={() => {
+    if (options.length) {
+      setOpen((prev) => !prev);
+    }
+  }}
+  style={{
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    width: "200px",
+    height: "40px",
+    background: "#F0F0F0",
+    borderRadius: "6px",
+    padding: "0 10px",
+    cursor: options.length ? "pointer" : "text",
+  }}
+>
       <img src={Search_Icon} alt="search" height="16" />
 
       {options.length > 0 ? (
@@ -67,7 +72,6 @@ export default function SearchBar({
               flex: 1,
               fontSize: "14px",
             }}
-            onClick={() => setOpen(!open)}
           >
             {value || `Select ${placeholder}`}
           </div>
@@ -91,9 +95,12 @@ export default function SearchBar({
               }}
             >
               {options.map((option) => (
-                <li
+               <li
                   key={option}
-                  onClick={() => handleSelect(option)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelect(option);
+                  }}
                   style={{
                     padding: "10px",
                     cursor: "pointer",
