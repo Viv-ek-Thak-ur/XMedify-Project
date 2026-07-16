@@ -33,11 +33,7 @@ export default function SearchResult() {
 
   // Fetch hospitals whenever URL changes
   useEffect(() => {
-    console.log("Hospital useEffect ran");
-    console.log("urlState:", urlState);
-console.log("urlCity:", urlCity);
     if (!urlState ) return;
-
     const fetchHospitals = async () => {
        try {
       const url = urlCity
@@ -47,8 +43,6 @@ console.log("urlCity:", urlCity);
         : `https://meddata-backend.onrender.com/data?state=${encodeURIComponent(
             urlState
           )}`;
-
-          console.log("Fetching URL:", url);
 
       const res = await fetch(url);
       const data = await res.json();

@@ -18,13 +18,23 @@ export default function MyBookings(){
         <div className={styles.container}>
             <div className={styles.left}>
                 <h1>My Bookings</h1>
-               {bookings.length === 0 ?<p>No Bookings Yet</p> :(bookings.map((booking,index)=>(
-                    <HospitalCard
-                        key={booking.hospital["Provider ID"] + index}
-                        hospital={booking.hospital}
-                        booking={booking}
-                    />
-                )))} 
+               {bookings.length === 0 ? (
+                            <p>No Bookings Yet</p>
+                            ) : (
+                            bookings.map((booking, index) => {
+                                const hospital = booking.hospital || booking;
+
+                                return (
+                                <HospitalCard
+                                    key={
+                                    (hospital["Provider ID"] || hospital["Hospital Name"]) + index
+                                    }
+                                    hospital={hospital}
+                                    booking={booking}
+                                />
+                                );
+                            })
+                 )}
             </div>
         </div>
         
