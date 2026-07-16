@@ -17,7 +17,7 @@ export default function MyBookings(){
      
         <div className={styles.container}>
             <div className={styles.left}>
-                <h1 color="#2aa7ff">My Bookings</h1>
+                <h1>My Bookings</h1>
                {bookings.length === 0 ?<p>No Bookings Yet</p> :(bookings.map((booking,index)=>(
                     <HospitalCard
                         key={booking.hospital["Provider ID"] + index}

@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/Group 8.svg";
 
 
 
 export default function Navbar(){
-    const navs = [
-  "Find Doctors",
-  "Hospitals",
-  "Medicines",
-  "Surgeries",
-  "Software For Provider",
-  "Facilities",
+   const navs = [
+  { label: "Find Doctors", path: "/" },
+  { label: "Hospitals", path: "/search-results" },
+  { label: "Medicines", path: "/" },
+  { label: "Surgeries", path: "/" },
+  { label: "Software For Provider", path: "/" },
+  { label: "Facilities", path: "/" },
 ];
 const navigate = useNavigate();
 
@@ -46,22 +46,26 @@ const handleMyBookings = () => {
           alignItems: "center",
         }}
       >
-       <a href="/"> <img src={logo} alt="MedifyLogo" /> </a>
-        <div style={{ display: "flex", gap: "60px", alignItems: "center" }}>
-          {navs.map((nav, index) => (
-            <a
-              key={index}
-              href="#"
-              style={{
-                textDecoration: "none",
-                color: "black",
-                lineHeight: "1",
-                height: "100%",
-              }}
-            >
-              {nav}
-            </a>
-          ))}
+          <Link to="/">
+             <img src={logo} alt="MedifyLogo" />
+          </Link>
+
+          <div style={{ display: "flex", gap: "60px", alignItems: "center" }}>
+            {navs.map((nav) => (
+                <Link
+                  key={nav.label}
+                  to={nav.path}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    lineHeight: "1",
+                    height: "100%",
+                  }}
+                >
+                  {nav.label}
+                </Link>
+              ))}
+          </div>
           <button
             type="button"
             onClick={handleMyBookings}
@@ -77,7 +81,7 @@ const handleMyBookings = () => {
           >
             My Bookings
           </button>
-        </div>
+        
       </nav>
         </div>
     )
