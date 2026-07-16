@@ -30,7 +30,7 @@ export default function useLocationData(){
 
         const fetchCities = async () => {
             try{
-                const result = await fetch(`https://meddata-backend.onrender.com/cities/${selectedState} `)
+                const result = await fetch(`https://meddata-backend.onrender.com/cities/${selectedState}`)
                 const data = await result.json();
                 setCities(data);
       } catch (err) {
@@ -39,6 +39,8 @@ export default function useLocationData(){
         };
         fetchCities();
     },[selectedState]);
+
+   
 
      return {
     states,

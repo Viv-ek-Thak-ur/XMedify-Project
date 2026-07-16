@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Search_Icon from "../../assets/Icon.svg";
 
 export default function SearchBar({
+  id,
   placeholder,
   value,
   onChange,
@@ -42,6 +43,7 @@ export default function SearchBar({
 
   return (
     <div
+      id={id}
       ref={dropdownRef}
       style={{
         position: "relative",

@@ -25,8 +25,9 @@ variant = "results",
         <div className={`${styles.searchSection} ${
             variant === "home" ? styles.home : ""
         }`}>
-      <div id="state">    
+      <div >    
       <SearchBar
+        id="state"
         placeholder="State"
         options={states}
         value={selectedState}
@@ -35,6 +36,7 @@ variant = "results",
       </div>
       <div id="city">
       <SearchBar
+        id="city"
         placeholder="City"
         options={cities}
         value={selectedCity}
