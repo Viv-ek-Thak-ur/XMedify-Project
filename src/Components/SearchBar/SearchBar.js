@@ -1,39 +1,109 @@
+import { useState, useRef, useEffect } from "react";
 import Search_Icon from "../../assets/Icon.svg";
 
-export default function SearchBar({ placeholder, value, onChange, options = [] }) {
+export default function SearchBar({
+  placeholder,
+  value,
+  onChange,
+  options = [],
+}) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () =>
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+  }, []);
+
+  const handleSelect = (option) => {
+    onChange({
+      target: {
+        value: option,
+      },
+    });
+
+    setOpen(false);
+  };
+
   return (
     <div
+      ref={dropdownRef}
       style={{
+        position: "relative",
         display: "flex",
-        gap: "4px",
-        backgroundColor: "#F0F0F0",
-        width: "200px",
-        height: "32px",
         alignItems: "center",
-        borderRadius: "4px",
-        padding: "0 8px",
+        gap: "8px",
+        width: "200px",
+        height: "40px",
+        background: "#F0F0F0",
+        borderRadius: "6px",
+        padding: "0 10px",
+        cursor: options.length ? "pointer" : "text",
       }}
     >
-      <img src={Search_Icon} height="16" alt="search" />
+      <img src={Search_Icon} alt="search" height="16" />
+
       {options.length > 0 ? (
-        <select
-          value={value}
-          onChange={onChange}
-          style={{
-            backgroundColor: "transparent",
-            border: "none",
-            outline: "none",
-            flex: "1",
-            fontSize: "14px",
-          }}
-        >
-          <option value="">{`Select ${placeholder}`}</option>
-          {options.map((opt, i) => (
-            <option key={i} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
+        <>
+          <div
+            style={{
+              flex: 1,
+              fontSize: "14px",
+            }}
+            onClick={() => setOpen(!open)}
+          >
+            {value || `Select ${placeholder}`}
+          </div>
+
+          {open && (
+            <ul
+              style={{
+                position: "absolute",
+                top: "42px",
+                left: 0,
+                right: 0,
+                background: "#fff",
+                border: "1px solid #ddd",
+                borderRadius: "6px",
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+                maxHeight: "220px",
+                overflowY: "auto",
+                zIndex: 1000,
+              }}
+            >
+              {options.map((option) => (
+                <li
+                  key={option}
+                  onClick={() => handleSelect(option)}
+                  style={{
+                    padding: "10px",
+                    cursor: "pointer",
+                    borderBottom: "1px solid #eee",
+                  }}
+                >
+                  {option}
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
       ) : (
         <input
           type="text"
@@ -41,11 +111,10 @@ export default function SearchBar({ placeholder, value, onChange, options = [] }
           value={value}
           onChange={onChange}
           style={{
-            backgroundColor: "transparent",
+            flex: 1,
             border: "none",
             outline: "none",
-            flex: "1",
-            fontSize: "14px",
+            background: "transparent",
           }}
         />
       )}
