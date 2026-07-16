@@ -10,7 +10,7 @@ export default function SearchBar({
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Close dropdown when clicking outside
+ 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
