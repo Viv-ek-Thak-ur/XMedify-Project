@@ -15,24 +15,21 @@ export default function HospitalCard({ hospital, booking }) {
     bookingTime: time,
   };
 
-  console.log("newBooking:", newBooking);
+ 
 
   const bookings =
     JSON.parse(localStorage.getItem("bookings")) || [];
 
   bookings.push(newBooking);
 
-  console.log("Before save:", bookings);
+ 
 
   localStorage.setItem(
     "bookings",
     JSON.stringify(bookings)
   );
 
-  console.log(
-    "After save:",
-    JSON.parse(localStorage.getItem("bookings"))
-  );
+ 
 
   alert("Booking Confirmed!");
   setShowBooking(false);
