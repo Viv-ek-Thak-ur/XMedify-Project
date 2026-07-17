@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/Group 8.svg";
+import styles from "./Navbar.module.css";
 
 
 
@@ -18,71 +19,41 @@ const handleMyBookings = () => {
   navigate(`/my-bookings`);
 }
 
-    return(
-        <div>
-            <p
-        style={{
-          backgroundColor: "#2AA7FF",
-          margin: "0",
-          height: "30px",
-          textAlign: "center",
-          paddingTop: "5px",
-          color: "white",
-          fontSize: "14px",
-          lineHeight: "30px",
-        }}
-      >
-        {" "}
-        The health and well-being of our patients and their health care team
-        will always be our priority, so we follow the best practices for
-        cleanliness.
-      </p>
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          margin:"100px",
-          marginTop:"10px",
-          alignItems: "center",
-        }}
-      >
-          <Link to="/">
-             <img src={logo} alt="MedifyLogo" />
-          </Link>
+   return (
+  <>
+    <div className={styles.topBar}>
+      The health and well-being of our patients and their health care team
+      will always be our priority, so we follow the best practices for
+      cleanliness.
+    </div>
 
-          <div style={{ display: "flex", gap: "60px", alignItems: "center" }}>
-            {navs.map((nav) => (
-                <Link
-                  key={nav.label}
-                  to={nav.path}
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                    lineHeight: "1",
-                    height: "100%",
-                  }}
-                >
-                  {nav.label}
-                </Link>
-              ))}
-          </div>
-          <button
-            type="button"
-            onClick={handleMyBookings}
-            onMouseEnter={(e)=> e.target.style.backgroundColor = "#1f86d0ff"}
-            onMouseLeave={(e)=> e.target.style.backgroundColor = "#2aa7ff"}
-            style={{
-              backgroundColor: "#2aa7ff",
-              border: "0",
-              height: "2rem",
-              borderRadius: "4px",
-              color: "#ffffff"
-            }}
-          >
-            My Bookings
-          </button>
-        
-      </nav>
+    <nav className={styles.navbar}>
+      <div className={styles.container}>
+        <Link to="/" className={styles.logo}>
+          <img src={logo} alt="Medify Logo" />
+        </Link>
+
+        <div className={styles.navLinks}>
+          {navs.map((nav) => (
+            <Link
+              key={nav.label}
+              to={nav.path}
+              className={styles.navLink}
+            >
+              {nav.label}
+            </Link>
+          ))}
         </div>
-    )
+
+        <button
+          type="button"
+          onClick={handleMyBookings}
+          className={styles.bookingBtn}
+        >
+          My Bookings
+        </button>
+      </div>
+    </nav>
+  </>
+);
 }
