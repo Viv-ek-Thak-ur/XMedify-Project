@@ -40,7 +40,7 @@ export default function SearchBar({
 
     setOpen(false);
   };
-
+console.log("Dropdown open:", open);
   return (
    <div
   id={id}
@@ -68,6 +68,7 @@ export default function SearchBar({
       {options.length > 0 ? (
         <>
           <div
+          className="state"
             style={{
               flex: 1,
               fontSize: "14px",
