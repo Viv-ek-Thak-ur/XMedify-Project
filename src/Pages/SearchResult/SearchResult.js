@@ -86,8 +86,6 @@ useEffect(()=>{
   }
 };
 
-
-
   return (
     <div className={styles.resultsContainer}>
       <SearchSection
@@ -103,7 +101,7 @@ useEffect(()=>{
       {urlState && (
             <h1>
                 {urlCity ? hospitals.length : hospitalCount} medical centers available in{" "}
-                {urlCity || urlState}
+                {urlCity.toLowerCase() || urlState}
             </h1>
                       )}
       <div className={styles.content}>
@@ -118,10 +116,7 @@ useEffect(()=>{
         <div className={styles.right}>
            <Advertisement />
         </div>
-      </div>
-
-
-      
+      </div>            
     </div>
   );
 }
