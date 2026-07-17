@@ -45,6 +45,8 @@ const handleSearch = (state,city) => {
   }
 }
 
+console.log(states);
+
   return (
     <div
       style={{
