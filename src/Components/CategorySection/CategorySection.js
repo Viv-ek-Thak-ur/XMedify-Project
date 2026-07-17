@@ -27,7 +27,7 @@ export default function CategorySection() {
   cities,
   selectedCity,
   setSelectedCity,
-  loading
+  
 } = useLocationData();
 
 const navigate = useNavigate();

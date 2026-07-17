@@ -40,17 +40,12 @@ export default function SearchBar({
 
     setOpen(false);
   };
-console.log("Dropdown open:", open);
-console.log(options.length, options.slice(0, 5));
+
   return (
    <div
   id={id}
   ref={dropdownRef}
-  onClick={() => {
-    if (options.length) {
-      setOpen((prev) => !prev);
-    }
-  }}
+  onClick={() => setOpen((prev) => !prev)}
   style={{
     position: "relative",
     display: "flex",
@@ -61,16 +56,15 @@ console.log(options.length, options.slice(0, 5));
     background: "#F0F0F0",
     borderRadius: "6px",
     padding: "0 10px",
-    cursor: options.length ? "pointer" : "text",
+    cursor: "pointer" 
   }}
 >
       <img src={Search_Icon} alt="search" height="16" />
 
-      {options.length > 0 ? (
+      
         <>
           <div
-          className="state"
-            style={{
+              style={{
               flex: 1,
               fontSize: "14px",
             }}
@@ -96,7 +90,7 @@ console.log(options.length, options.slice(0, 5));
                 zIndex: 1000,
               }}
             >
-              {options.map((option) => (
+             {options.length ? (options.map((option) => (
                <li
                   key={option}
                   onClick={(e) => {
@@ -111,24 +105,15 @@ console.log(options.length, options.slice(0, 5));
                 >
                   {option}
                 </li>
-              ))}
+              ))): (
+                  <li style={{ padding: "10px", color: "#666" }}>
+                    Loading...
+                  </li>
+                )}
             </ul>
           )}
         </>
-      ) : (
-        <input
-          type="text"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          style={{
-            flex: 1,
-            border: "none",
-            outline: "none",
-            background: "transparent",
-          }}
-        />
-      )}
+      
     </div>
   );
 }
