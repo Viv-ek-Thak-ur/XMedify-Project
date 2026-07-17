@@ -27,7 +27,7 @@ export default function CategorySection() {
   cities,
   selectedCity,
   setSelectedCity,
-  
+
 } = useLocationData();
 
 const navigate = useNavigate();
@@ -79,7 +79,7 @@ console.log(states);
         selectedCity={selectedCity}
         setSelectedCity={setSelectedCity}
         onSearch={handleSearch}
-        loading={loading}
+        
       />
       </div>
       <p
