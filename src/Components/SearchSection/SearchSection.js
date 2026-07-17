@@ -11,6 +11,7 @@ variant = "results",
   selectedCity,
   setSelectedCity,
   onSearch,
+  loading
 }) {
   const handleSearch = () => {
     if (!selectedState) {
@@ -21,7 +22,7 @@ variant = "results",
     onSearch(selectedState, selectedCity);
   };
 
-  return (
+  return ( !loading ?(
         <div className={`${styles.searchSection} ${
             variant === "home" ? styles.home : ""
         }`}>
@@ -52,6 +53,7 @@ variant = "results",
         <img src={BtnIcon} alt="Search" />
         Search
       </button>
-    </div>
+    </div> ) : (<div>Loading . . . . . . . . . .</div>)
+
   );
 }

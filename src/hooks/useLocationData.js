@@ -5,6 +5,7 @@ export default function useLocationData(){
     const [selectedState , setSelectedState] = useState("");
     const [cities , setCities] = useState([]);
     const [selectedCity , setSelectedCity] = useState("");
+    const [loading, setLoading] = useState(true);
 
     //fetch states on first render/load
 
@@ -16,6 +17,8 @@ export default function useLocationData(){
                 setStates(data);
             } catch (err) {
         console.error("Error fetching states:", err);
+      } finally {
+        setLoading(false);
       }
         };
         fetchStates();
@@ -49,5 +52,6 @@ export default function useLocationData(){
     cities,
     selectedCity,
     setSelectedCity,
+    loading
   };
 }

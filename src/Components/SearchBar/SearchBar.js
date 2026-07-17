@@ -41,6 +41,7 @@ export default function SearchBar({
     setOpen(false);
   };
 console.log("Dropdown open:", open);
+console.log(options.length, options.slice(0, 5));
   return (
    <div
   id={id}
