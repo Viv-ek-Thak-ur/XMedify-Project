@@ -13,12 +13,13 @@
 .navbar {
   background: white;
   width: 100%;
+  margin-top: 10px;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 16px 16px;
   top: 0;
   display: flex;
   /* align-items: center; */
@@ -64,6 +65,7 @@
 .menuIcon{
     width: 60%;
     height: 60%;
+    
 }
 .hamburger {
   display: none;
@@ -72,10 +74,17 @@
   color: #1051c3;
   font-size: 16px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
-
+@media(max-width:500px){
+  .container{
+    padding: 1px 2px;
+  }
+  .menuIcon{
+    margin-left: 5px;
+  
+}}
 
 @media(max-width:768px){
 
@@ -102,6 +111,7 @@
     .hamburger{
     display: block;
     align-self: flex-end;
+    padding: 1px 1px;
     }
    
     .topBar {

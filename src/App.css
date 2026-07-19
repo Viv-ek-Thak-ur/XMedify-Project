@@ -1,3 +1,5 @@
-.{
-  background-color: rgb(196, 224, 250);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

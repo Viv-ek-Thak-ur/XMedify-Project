@@ -1,18 +1,15 @@
 import HeroImage from "../../assets/NicePng_doctor-png_336282 1.svg";
+import styles from "./HeroSection.module.css";
 
 export default function HeroSection(){
     return(
-        <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          margin: "100px",
-        }}
-      >
-        <div style={{ padding: "3rem", width: "500px" }}>
+        <div 
+          className={styles.container}
+          >
+        <div className={styles.leftSection} >
           <h2 style={{ fontWeight: "normal" }}>Skip the travel! Find Online</h2>
           <h1>
-            Medical <span style={{ color: "#2aa7ff" }}>Centers</span>
+            Medical <span >Centers</span>
           </h1>
           <p>
             Connect instantly with a 24x7 specialist or choose to video visit a
@@ -23,23 +20,16 @@ export default function HeroSection(){
             onClick={() => alert("Hi")}
             onMouseEnter={(e) => (e.target.style.backgroundColor = "#1f86d0ff")}
             onMouseLeave={(e) => (e.target.style.backgroundColor = "#2aa7ff")}
-            style={{
-              backgroundColor: "#2aa7ff",
-              border: "0",
-              height: "2rem",
-              borderRadius: "4px",
-              color: "#ffffff",
-              width: "8rem",
-            }}
+            className={styles.findBtn}
           >
             Find Centres
           </button>
         </div>
-        <div>
+        <div className={styles.rightSection}>
           <img
             src={HeroImage}
             alt="DoctorsImage"
-            style={{ width: "500px", height: "auto" }}
+            className={styles.heroImageIcon}
           />
         </div>
       </div>

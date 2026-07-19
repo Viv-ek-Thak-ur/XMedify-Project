@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto 100px;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.leftSection {
+  flex: 1;
+}
+.leftSection span{
+    color: #2aa7ff; 
+}
+
+.findBtn{
+     
+    background-color: #2aa7ff;
+    border: 0;
+    height: 2rem;
+    border-radius: 4px;
+    color: #ffffff;
+    width: 8rem;
+            
+}
+
+.rightSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.heroImageIcon {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+@media(max-width : 700px){
+    .container{
+        flex-direction: column;
+    }
+    .heroImageIcon{
+        margin-top: -30px;
+    }
+}

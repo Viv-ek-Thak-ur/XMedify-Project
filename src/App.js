@@ -3,12 +3,13 @@ import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import SearchResults from "./Pages/SearchResult/SearchResult";
 import MyBookings from "./Pages/My Bookings/MyBookings";
+import "./App.css";
 
 function App() {
 
  
   return (
-    <>
+    <div>
       <Navbar />
 
       <Routes>
@@ -16,7 +17,7 @@ function App() {
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/my-bookings" element={<MyBookings/>}/>
       </Routes>
-    </>
+    </div>
   );
 }
 
