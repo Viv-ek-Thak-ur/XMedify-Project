@@ -5,6 +5,10 @@
   font-size: 14px;
   padding: 8px 16px;
 }
+.topBarText{
+    display: inline-block;
+
+}
 
 .navbar {
   background: white;
@@ -15,9 +19,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 18px 24px;
-
+  top: 0;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
 }
 
@@ -56,4 +60,79 @@
 
 .bookingBtn:hover {
   background: #1f86d0;
+}
+.menuIcon{
+    width: 60%;
+    height: 60%;
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: #1051c3;
+  font-size: 16px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+
+@media(max-width:768px){
+
+  .container {
+    position: relative;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .showMenu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: inherit;
+    border-radius: inherit;
+    align-items: end;
+    gap: 8px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+  }
+
+    .hamburger{
+    display: block;
+    align-self: flex-end;
+    }
+   
+    .topBar {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+  .topBarText {
+    display: inline-block;
+    animation: movingText 12s linear infinite;
+  }
+
+}
+
+@keyframes movingText {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.hamExpand{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    box-shadow: 1px 2px #e3e3e3;
+    background-color: #deedfc;
+    border-radius: 12px;
+    box-sizing: border-box;
 }
