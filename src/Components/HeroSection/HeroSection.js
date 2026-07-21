@@ -1,8 +1,10 @@
 import HeroImage from "../../assets/NicePng_doctor-png_336282 1.svg";
 import styles from "./HeroSection.module.css";
+import CategorySection from "../CategorySection/CategorySection";
 
 export default function HeroSection(){
     return(
+      <>
         <div 
           className={styles.container}
           >
@@ -33,6 +35,10 @@ export default function HeroSection(){
           />
         </div>
       </div>
+      <div>
+        <CategorySection/>
+      </div>
+      </>
 
     )
 }

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Search_Icon from "../../assets/Icon.svg";
+import styles from "./SearchBar.module.css";
 
 export default function SearchBar({
   id,
@@ -43,52 +44,25 @@ export default function SearchBar({
 
   return (
    <div
+   className={styles.container}
   id={id}
   ref={dropdownRef}
   onClick={() => setOpen((prev) => !prev)}
-  style={{
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    width: "200px",
-    height: "40px",
-    background: "#F0F0F0",
-    borderRadius: "6px",
-    padding: "0 10px",
-    cursor: "pointer" 
-  }}
+  
 >
       <img src={Search_Icon} alt="search" height="16" />
 
       
         <>
-          <div
-              style={{
-              flex: 1,
-              fontSize: "14px",
-            }}
+          <div className={styles.searchText}
+              
           >
             {value || `Select ${placeholder}`}
           </div>
 
           {open && (
-            <ul
-              style={{
-                position: "absolute",
-                top: "42px",
-                left: 0,
-                right: 0,
-                background: "#fff",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
-                listStyle: "none",
-                margin: 0,
-                padding: 0,
-                maxHeight: "220px",
-                overflowY: "auto",
-                zIndex: 1000,
-              }}
+            <ul className={styles.list}
+             
             >
              {options.length ? (options.map((option) => (
                <li

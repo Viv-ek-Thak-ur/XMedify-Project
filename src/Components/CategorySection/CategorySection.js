@@ -92,7 +92,7 @@ const handleSearch = (state,city) => {
             }}
           >
             <img className={styles.catImage}src={cat.image} alt="category"/> 
-            <b className={styles.catLabel}>{cat.label}</b>
+            <p className={styles.catLabel}>{cat.label}</p>
           </Link>
         ))}
       </div>

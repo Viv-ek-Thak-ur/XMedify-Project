@@ -33,7 +33,7 @@
   padding: 12px 24px;
 
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
 
   cursor: pointer;
 
@@ -58,6 +58,7 @@
 
   .searchButton {
     justify-content: center;
+    font-size: 12px;
   }
 }
 .home {
