@@ -22,3 +22,8 @@
     color:#1B3C74;
     margin:30px 0;
 }
+@media(max-width:700px){
+    .right{
+        display: none;
+    }
+}

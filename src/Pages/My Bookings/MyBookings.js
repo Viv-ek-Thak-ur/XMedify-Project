@@ -16,8 +16,11 @@ export default function MyBookings(){
     return(
      
         <div className={styles.container}>
+            <div className={styles.heading}>
+            <h1>My Bookings</h1>
+            </div>
             <div className={styles.left}>
-                <h1>My Bookings</h1>
+                
                {bookings.length === 0 ? (
                             <p>No Bookings Yet</p>
                             ) : (

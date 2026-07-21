@@ -101,7 +101,7 @@ useEffect(()=>{
       {urlState && (
             <h1>
                 {urlCity ? hospitals.length : hospitalCount} medical centers available in{" "}
-                {urlCity.toLowerCase() || urlState}
+                {urlCity.toLowerCase || urlState}
             </h1>
                       )}
       <div className={styles.content}>

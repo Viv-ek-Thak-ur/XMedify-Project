@@ -3,3 +3,22 @@
     margin:40px auto;
     padding:0 20px;
 }
+
+.heading h1{
+    font-size: x-large;
+    color: #2c97f6;
+    margin: 0;
+}
+@media(max-width:700px){
+    .heading{
+    display: flex;
+    justify-content: center;
+}
+.heading h1{
+    font-size: large;
+}
+.container{
+    margin: 12px auto;
+    padding: 0 40px 40px 40px;
+}
+}

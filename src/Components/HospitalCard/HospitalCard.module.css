@@ -33,13 +33,13 @@
 .hospitalInfo h3 {
   margin: 0;
   color: #2aa7ff;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
 }
 
 .hospitalInfo p {
   margin: 8px 0;
-  font-size: 14px;
+  font-size: 13px;
   color: #414146;
   line-height: 1.5;
 }
@@ -137,20 +137,25 @@
    Responsive
 =========================== */
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .topSection {
     flex-direction: column;
-    gap: 24px;
+    gap: 8px;
+    justify-content: center;
   }
 
   .leftSection {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
+    margin: auto;
+    gap: 8px;
   }
 
   .rightSection {
     width: 100%;
+    margin: auto;
   }
 
   .bookButton {
@@ -159,5 +164,34 @@
 
   .bookingInfo {
     justify-content: center;
+    margin-top: 0px;
   }
+  .bookingDate,
+.bookingTime {
+  padding: 7px 10px;
+  font-size: 10px;
+}
+  .hospitalImage{
+    width: 15vw;
+    height: 15vw;
+  }
+  .card{
+    margin: 4px auto;
+  padding: 8px 0;
+  }
+  .hospitalInfo h3 {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hospitalInfo p {
+  margin: 4px 0;
+  font-size: 10px;
+  color: #414146;
+  line-height: 1.5;
+}
+.thumbIcon {
+  margin-top: 0;
+  width: 32px;
+}
 }

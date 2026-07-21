@@ -5,17 +5,18 @@ import Labs from "../../assets/ae.svg";
 import Hospitals from "../../assets/g.svg";
 import Medical_Store from "../../assets/e.svg";
 import Ambulance from "../../assets/h.svg";
+import styles from "./CategorySection.module.css";
 
 
 import useLocationData from "../../hooks/useLocationData";
 import SearchSection from "../SearchSection/SearchSection";
 
 const category = [
-  { label: "Doctors", image: Doctor },
-  { label: "Labs", image: Labs },
-  { label: "Hospitals", image: Hospitals },
-  { label: "Medical Store", image: Medical_Store },
-  { label: "Ambulance", image: Ambulance },
+  { label: "Doctors", image: Doctor, link: "/" },
+  { label: "Labs", image: Labs,  link: "/"  },
+  { label: "Hospitals", image: Hospitals ,  link: "/search-results" },
+  { label: "Medical Store", image: Medical_Store ,  link: "/" },
+  { label: "Ambulance", image: Ambulance , link: "/" },
 ];
 
 export default function CategorySection() {
@@ -46,29 +47,14 @@ const handleSearch = (state,city) => {
   }
 }
 
-console.log(states);
+
 
   return (
-    <div
-      style={{
-        margin: "150px",
-        marginTop: "-150px",
-        backgroundColor: "#fff",
-        padding: "50px",
-        borderRadius: "16px",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
-      }}
+    <div className={styles.container}
+     
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginLeft: "150px",
-          marginRight: "50px",
-          flexWrap: "wrap",
-          gap: "20px",
-        }}
+      <div className={styles.searchWrapper}
+       
       >
       <SearchSection
         variant = "home"
@@ -82,48 +68,18 @@ console.log(states);
         
       />
       </div>
-      <p
-        style={{
-          textAlign: "center",
-          fontSize: "20px",
-          fontWeight: "500",
-          color: "#1B3C74",
-          marginTop: "60px",
-          marginBottom: "40px",
-        }}
+      <p className={styles.heading}
       >
         You may be looking for
       </p>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "3rem",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+      <div className={styles.categoryGrid}
+       
       >
         {category.map((cat, index) => (
           <Link
+            className={styles.categoryLink}
             key={index}
-            to="/"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "160px",
-              height: "120px",
-              backgroundColor: "#f9fbff",
-              border: "2px solid transparent",
-              borderRadius: "12px",
-              color: "#1B3C74",
-              textDecoration: "none",
-              fontWeight: "600",
-              fontSize: "16px",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-              transition: "all 0.3s ease",
-            }}
+            to={cat.link}
             onMouseEnter={(e) => {
               e.currentTarget.style.border = "2px solid #2aa7ff";
               e.currentTarget.style.backgroundColor = "#e9f5ff";
@@ -135,7 +91,8 @@ console.log(states);
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <img src={cat.image} alt="category"/> {cat.label}
+            <img className={styles.catImage}src={cat.image} alt="category"/> 
+            <b className={styles.catLabel}>{cat.label}</b>
           </Link>
         ))}
       </div>
